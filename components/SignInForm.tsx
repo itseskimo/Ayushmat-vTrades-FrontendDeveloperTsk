@@ -1,28 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 
 import GoogleIcon from "@/components/icons/GoogleIcon";
 import MicrosoftIcon from "@/components/icons/MicrosoftIcon";
 import { TextField } from "@/components/FormControls";
 
-import {
-  setRememberMe,
-  setSignInField,
-  signInUser,
-} from "@/store/authSlice";
+import { setRememberMe, setSignInField, signInUser } from "@/store/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 export function SignInForm() {
   const dispatch = useAppDispatch();
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   // Reads the sign-in form values from the Redux store.
   const fields = useAppSelector((state) => state.auth.signIn);
 
   // Reads the current request status, messages, and validation errors.
   const request = useAppSelector((state) => state.auth.request);
+
+  // Shows the success message and removes it after five seconds.
+  useEffect(() => {
+    if (request.name !== "signIn" || !request.message) {
+      return;
+    }
+
+    setShowSuccessMessage(true);
+
+    const timer = setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [request.name, request.message]);
 
   // Handles email and password sign-in.
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -49,9 +62,9 @@ export function SignInForm() {
       {/* Email and password sign-in form */}
       <form onSubmit={handleSubmit} noValidate className="relative">
         {/* Displays a request message for the sign-in action */}
-        {request.name === "signIn" && request.message && (
+        {showSuccessMessage && request.message && (
           <div
-            className="status-success absolute -top-9 left-0 z-10 w-full"
+            className="status-success status-success-animated absolute -top-9 left-0 z-10 w-full"
             role="status"
           >
             {request.message}

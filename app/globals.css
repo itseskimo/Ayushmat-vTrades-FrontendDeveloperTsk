@@ -169,3 +169,24 @@
     @apply w-[125px];
   }
 }
+.status-success-animated {
+  animation: success-message 5s ease forwards;
+}
+
+@keyframes success-message {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  10%,
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
