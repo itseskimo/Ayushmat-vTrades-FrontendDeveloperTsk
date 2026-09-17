@@ -44,6 +44,7 @@ export function TextField({
             isPassword ? "password-input" : ""
           }`}
           aria-invalid={Boolean(error)}
+          autoFocus
         />
 
         {/* Password visibility button */}
