@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import MailIcon from "@/components/icons/MailIcon";
 import EyeIcon from "@/components/icons/EyeIcon";
 import EyeOffIcon from "@/components/icons/EyeOffIcon";
 
@@ -102,7 +102,7 @@ export function SuccessModal({
     >
       <div className="modal">
         <div className="modal-icon" aria-hidden="true">
-          ✓
+          <MailIcon/>
         </div>
 
         <h2 id="success-title">{title}</h2>

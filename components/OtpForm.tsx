@@ -10,6 +10,7 @@ import {
 
 import { setOtpDigit, verifyOtp } from "@/store/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import TimerIcon from "@/components/icons/TimerIcon";
 
 export function OtpForm() {
   const dispatch = useAppDispatch();
@@ -143,7 +144,7 @@ export function OtpForm() {
         )}
 
         {/* Remaining verification time */}
-        <div className="timer">◷ {seconds}s</div>
+        <div className="timer"><TimerIcon/> {seconds}s</div>
 
         <button
           type="submit"
